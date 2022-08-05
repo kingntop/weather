@@ -23,7 +23,11 @@ test('should create a bug report', async ({ page }) => {
     
     const  data = JSON.parse(await page.$eval('body > pre', el => el.textContent.trim()));
 
-    console.log(data)
+    const posts = data.response.body.items.item;
+
+    for (const post of posts) {
+        console.log(post)
+    }
 
     // console.log(posts)
 
