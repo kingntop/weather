@@ -11,11 +11,12 @@ import {
 
 // https://gb9fb258fe17506-apexdb.adb.ap-seoul-1.oraclecloudapps.com/ords/twright/v1/twright/logs/:rid
 
+
 const auth_key = '766614B7C9A901198F2F5630349ADB7A9DAFB63976AF64DBB8A775D3BCCBDDB1'
-const DEV = 'https://gb9fb258fe17506-apexdb.adb.ap-seoul-1.oraclecloudapps.com/ords/twright/'
-const post_url = DEV + 'v1/twright/logs/'
-const get_url  = DEV + 'v1/twright/tests/'
-const get_all_url = DEV + 'twright/v1/twright/tests' 
+const DEV = 'https://gb9fb258fe17506-apexdb.adb.ap-seoul-1.oraclecloudapps.com/ords/dataponic/'
+const post_url = DEV + 'elogs/weathers'
+const get_url  = DEV + 'elogs/weathers'
+
 
 /**
  * Test UID 정보
@@ -38,8 +39,8 @@ async function getUid(uid: string): Promise < any[] > {
 async function getUidAll(): Promise < any[] > {
     let users: any[] = [];
 
-    console.log(get_all_url)
-    const response:any =  await axios.get('https://gb9fb258fe17506-apexdb.adb.ap-seoul-1.oraclecloudapps.com/ords/twright/v1/twright/tests', {
+    console.log(get_url)
+    const response:any =  await axios.get(get_url, {
         // headers: {
         //     Authorization: auth_key 
         // }
@@ -50,7 +51,7 @@ async function getUidAll(): Promise < any[] > {
 
 
 
-async function postApex(rid : String, upJson: any):Promise < boolean > {
+async function postApex(upJson: any):Promise < boolean > {
     const request_config = {
         headers: {
             "Content-Type": 'application/json',
@@ -60,7 +61,7 @@ async function postApex(rid : String, upJson: any):Promise < boolean > {
         maxBodyLength: Infinity,
         data: upJson
     };
-    const response = await axios.post(post_url + rid, upJson, request_config);
+    const response = await axios.post(post_url, upJson, request_config);
     console.log(post_url, upJson)
     try {
         if (response.status === 200) { // response - object, eg { status: 200, message: 'OK' }
